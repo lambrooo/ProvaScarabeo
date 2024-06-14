@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Word Game</string>
+    <string name="hint_word">Inserisci una parola</string>
+    <string name="button_submit">Invia</string>
+</resources>
