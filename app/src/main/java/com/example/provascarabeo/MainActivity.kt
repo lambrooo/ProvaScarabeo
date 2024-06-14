@@ -6,12 +6,14 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.example.provascarabeo.R
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var initialLetterTextView: TextView
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var gameViewModel: GameViewModel
     private lateinit var aiPlayer: AIPlayer
     private lateinit var db: AppDatabase
+    private val scope = MainScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,21 +56,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Example of inserting a user
-        val lifecycleScope:lifecycleScope?=null
-        lifecycleScope.launch {
+        //inser user
+        scope.launch {
             withContext(Dispatchers.IO) {
                 db.userDao().insert(User(0, "Player1", 100))
             }
         }
 
-        // Example of reading users
-        lifecycleScope.launch {
-            val users = withContext(Dispatchers.IO) {
+        //read users
+        //read users
+        scope.launch {
+            val userResults = withContext(Dispatchers.IO) {
                 db.userDao().getAllUsers()
             }
-            users.forEach {
-                println("User: ${it.username}, Score: ${it.score}")
+            withContext(Dispatchers.Main) {
+                userResults.forEach {
+                    println("User: ${it.username}, Score: ${it.score}")
+                }
             }
         }
     }
@@ -80,5 +85,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             initialLetterTextView.text = "A"
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
     }
 }

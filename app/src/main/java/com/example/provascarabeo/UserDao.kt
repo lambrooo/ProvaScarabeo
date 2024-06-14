@@ -11,6 +11,6 @@ interface UserDao {
     @Insert
     suspend fun insert(user: User)
 
-    @Query("SELECT * FROM users ORDER BY score DESC")
-    suspend fun getAllUsers(): List<User>
+    @Query("SELECT id, username, score FROM users ORDER BY score DESC")
+    suspend fun getAllUsers(): List<UserResult>
 }
