@@ -1,5 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.provascarabeo">
+<!-- File: app/src/main/AndroidManifest.xml -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Permessi necessari -->
     <uses-permission android:name="android.permission.INTERNET" />

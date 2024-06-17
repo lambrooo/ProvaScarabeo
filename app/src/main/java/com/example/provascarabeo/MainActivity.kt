@@ -6,12 +6,10 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.example.provascarabeo.R
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 
@@ -56,15 +54,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        //inser user
+        // Inserisci un utente
         scope.launch {
             withContext(Dispatchers.IO) {
                 db.userDao().insert(User(0, "Player1", 100))
             }
         }
 
-        //read users
-        //read users
+        // Leggi gli utenti
         scope.launch {
             val userResults = withContext(Dispatchers.IO) {
                 db.userDao().getAllUsers()
@@ -86,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             initialLetterTextView.text = "A"
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         scope.cancel()
