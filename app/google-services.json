@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "448529061801",
+    "project_id": "scarabeo-2aca1",
+    "storage_bucket": "scarabeo-2aca1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448529061801:android:8c7720cb82d8f6ffc5d6b8",
+        "android_client_info": {
+          "package_name": "com.example.provascarabeo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcuJxLNidK-TZgjyYS3axVJKsPo8mg-YY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
