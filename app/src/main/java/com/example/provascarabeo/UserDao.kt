@@ -1,7 +1,6 @@
 package com.example.provascarabeo
 
-
-
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -12,5 +11,5 @@ interface UserDao {
     suspend fun insert(user: User)
 
     @Query("SELECT id, username, score FROM users ORDER BY score DESC")
-    suspend fun getAllUsers(): List<UserResult>
+    fun getAllUsers(): LiveData<List<UserResult>>
 }

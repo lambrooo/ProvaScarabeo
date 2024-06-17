@@ -1,10 +1,12 @@
 package com.example.provascarabeo
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var initialLetterTextView: TextView
     private lateinit var wordEditText: EditText
     private lateinit var submitWordButton: Button
+    private lateinit var startMultiplayerButton: Button
     private lateinit var gameViewModel: GameViewModel
     private lateinit var aiPlayer: AIPlayer
     private lateinit var db: AppDatabase
@@ -29,9 +32,10 @@ class MainActivity : AppCompatActivity() {
         initialLetterTextView = findViewById(R.id.initialLetterTextView)
         wordEditText = findViewById(R.id.wordEditText)
         submitWordButton = findViewById(R.id.submitWordButton)
+        startMultiplayerButton = findViewById(R.id.startMultiplayerButton)
 
         gameViewModel = ViewModelProvider(this).get(GameViewModel::class.java)
-        gameViewModel.currentLetter.observe(this, { letter ->
+        gameViewModel.currentLetter.observe(this, Observer { letter ->
             initialLetterTextView.text = letter
         })
 
@@ -62,15 +66,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Leggi gli utenti
-        scope.launch {
-            val userResults = withContext(Dispatchers.IO) {
-                db.userDao().getAllUsers()
+        db.userDao().getAllUsers().observe(this, Observer { users ->
+            users.forEach {
+                println("User: ${it.username}, Score: ${it.score}")
             }
-            withContext(Dispatchers.Main) {
-                userResults.forEach {
-                    println("User: ${it.username}, Score: ${it.score}")
-                }
-            }
+        })
+
+        // Gestisci il click del pulsante per avviare MultiplayerGameActivity
+        startMultiplayerButton.setOnClickListener {
+            val intent = Intent(this, MultiplayerGameActivity::class.java)
+            startActivity(intent)
         }
     }
 

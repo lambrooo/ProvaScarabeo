@@ -1,6 +1,5 @@
+// User.kt
 package com.example.provascarabeo
-
-
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

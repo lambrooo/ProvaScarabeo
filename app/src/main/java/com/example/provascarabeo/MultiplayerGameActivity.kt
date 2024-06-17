@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import missing.namespace.R
+import com.example.provascarabeo.R
 
 class MultiplayerGameActivity : AppCompatActivity() {
     private lateinit var initialLetterTextView: TextView

@@ -1,5 +1,4 @@
 val kotlinVersion = "1.6.10"
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -12,7 +11,7 @@ android {
     compileSdk = 34
     defaultConfig {
         applicationId = "com.example.provascarabeo"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -31,6 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -42,9 +44,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
-    implementation("androidx.room:room-runtime:2.4.3")
-    kapt("androidx.room:room-compiler:2.4.3")
-    implementation("androidx.room:room-ktx:2.4.3")
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     implementation("com.google.firebase:firebase-auth-ktx:21.0.3")
     implementation("com.google.firebase:firebase-database-ktx:20.0.3")
     testImplementation("junit:junit:4.13.2")
@@ -54,5 +56,4 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
 }
 
-// Applica il plugin di Google Services alla fine del file
 apply(plugin = "com.google.gms.google-services")

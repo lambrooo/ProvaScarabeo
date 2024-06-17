@@ -1,6 +1,5 @@
+// AppDatabase.kt
 package com.example.provascarabeo
-
-
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
