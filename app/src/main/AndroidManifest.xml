@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.provascarabeo">
 
     <!-- Permessi necessari -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -23,6 +24,17 @@
         <!-- Attività per il gioco multiplayer -->
         <activity android:name=".MultiplayerGameActivity" />
 
+        <!-- Attività per le opzioni -->
+        <activity android:name=".OptionsActivity" />
+
+        <!-- Attività per le statistiche -->
+        <activity android:name=".StatisticsActivity" />
+
+        <!-- Attività per la selezione della difficoltà -->
+        <activity android:name=".DifficultySelectionActivity" />
+
+        <!-- Attività per il single player -->
+        <activity android:name=".SinglePlayerActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,5 @@
 val kotlinVersion = "1.6.10"
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
