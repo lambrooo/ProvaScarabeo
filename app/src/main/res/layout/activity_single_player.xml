@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/colorBackground"
     tools:context=".SinglePlayerActivity">
 
     <TextView
@@ -114,7 +115,7 @@
         android:text="Termina Partita"
         android:layout_gravity="center"
         android:padding="16dp"
-        app:backgroundTint="@color/colorAccent"
+        app:backgroundTint="#FF5733"
         android:textColor="@android:color/white"
         app:cornerRadius="8dp"
         android:fontFamily="sans-serif-medium"
@@ -127,7 +128,7 @@
         android:text="Parole Usate"
         android:layout_gravity="center"
         android:padding="16dp"
-        app:backgroundTint="@color/colorAccent"
+        app:backgroundTint="#FF5733"
         android:textColor="@android:color/white"
         app:cornerRadius="8dp"
         android:fontFamily="sans-serif-medium"

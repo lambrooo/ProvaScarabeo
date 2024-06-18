@@ -1,6 +1,7 @@
 package com.example.provascarabeo
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -25,6 +26,7 @@ import java.io.InputStreamReader
 import kotlin.random.Random
 
 class SinglePlayerActivity : AppCompatActivity() {
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var initialLetterTextView: TextView
     private lateinit var wordEditText: EditText
     private lateinit var submitWordButton: Button
@@ -54,6 +56,8 @@ class SinglePlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_player)
+
+        sharedPreferences = getSharedPreferences("game_stats", Context.MODE_PRIVATE)
 
         initialLetterTextView = findViewById(R.id.initialLetterTextView)
         wordEditText = findViewById(R.id.wordEditText)
@@ -216,7 +220,10 @@ class SinglePlayerActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Fine del Gioco")
         builder.setMessage(message)
-        builder.setPositiveButton("OK") { _, _ -> finish() }
+        builder.setPositiveButton("OK") { _, _ ->
+            updateStatistics(winner)
+            finish()
+        }
         builder.show()
     }
 
@@ -236,6 +243,39 @@ class SinglePlayerActivity : AppCompatActivity() {
     private fun generateRandomLetters(count: Int): List<Char> {
         val letters = listOf('A', 'E', 'I', 'O')
         return List(count) { letters.random() }
+    }
+
+    private fun updateStatistics(winner: String) {
+        val editor = sharedPreferences.edit()
+        val gamesPlayed = sharedPreferences.getInt("gamesPlayed", 0) + 1
+        val gamesWon = sharedPreferences.getInt("gamesWon", 0)
+        val gamesLost = sharedPreferences.getInt("gamesLost", 0)
+        var longestWord = sharedPreferences.getString("longestWord", "") ?: ""
+        var mostUsedWord = sharedPreferences.getString("mostUsedWord", "") ?: ""
+        var mostUsedWordCount = sharedPreferences.getInt("mostUsedWordCount", 0)
+
+        if (winner == "Giocatore") {
+            editor.putInt("gamesWon", gamesWon + 1)
+        } else if (winner == "IA") {
+            editor.putInt("gamesLost", gamesLost + 1)
+        }
+
+        for (word in usedWords) {
+            if (word.length > longestWord.length) {
+                longestWord = word
+            }
+            val wordCount = usedWords.count { it == word }
+            if (wordCount > mostUsedWordCount) {
+                mostUsedWord = word
+                mostUsedWordCount = wordCount
+            }
+        }
+
+        editor.putInt("gamesPlayed", gamesPlayed)
+        editor.putString("longestWord", longestWord)
+        editor.putString("mostUsedWord", mostUsedWord)
+        editor.putInt("mostUsedWordCount", mostUsedWordCount)
+        editor.apply()
     }
 
     override fun onDestroy() {
